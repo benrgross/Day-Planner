@@ -4,49 +4,49 @@ $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 //Make objects and store in array for
 timeBlocks = [
   {
-    hour: "09",
+    hour: "09:00",
     meridiem: "am",
-    event: "",
+    input: "",
   },
   {
-    hour: "10",
+    hour: "10:00",
     meridiem: "am",
-    event: "",
+    input: "",
   },
   {
-    hour: "11",
+    hour: "11:00",
     meridiem: "am",
-    event: "",
+    input: "",
   },
   {
-    hour: "12",
+    hour: "12:00",
     meridiem: "pm",
-    event: "",
+    input: "",
   },
   {
-    hour: "01",
+    hour: "01:00",
     meridiem: "pm",
-    event: "",
+    input: "",
   },
   {
-    hour: "02",
+    hour: "02:00",
     meridiem: "pm",
-    event: "",
+    input: "",
   },
   {
-    hour: "03",
+    hour: "03:00",
     meridiem: "pm",
-    event: "",
+    input: "",
   },
   {
-    hour: "04",
+    hour: "04:00",
     meridiem: "pm",
-    event: "",
+    input: "",
   },
   {
-    hour: "05",
+    hour: "05:00",
     meridiem: "pm",
-    event: "",
+    input: "",
   },
 ];
 
@@ -60,11 +60,24 @@ timeBlocks.forEach(function (timeBlocks) {
   $(".container").append(hourRow);
 
   //-- build hour col
-  var hourColTime = $("<div>")
+  var timeCol = $("<div>")
     .attr({ class: "col-md-1 hour" })
     .text(`${timeBlocks.hour}${timeBlocks.meridiem}`);
-  console.log(hourColTime);
-  hourRow.append(hourColTime);
+  console.log(timeCol);
+  //   append timeCol to hourRow
+  hourRow.append(timeCol);
+
+  //   build text field with input
+  var inputCol = $("<textarea>").attr({ class: "col-md-10" });
+  //   append input to hourRow
+  hourRow.append(inputCol);
+
+  //---build btn
+  var saveBtn = $("<button>")
+    .text(`SAVE`)
+    .attr({ class: "col-md-1 btn saveBtn" });
+  // append btn to hourRow
+  hourRow.append(saveBtn);
 });
 // ----get the elements id
 
