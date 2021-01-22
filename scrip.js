@@ -87,20 +87,22 @@ timeBlocks.forEach(function (timeBlocks) {
 
   //   build text field with input and id
   var inputCol = $("<textarea>")
-    .attr({ class: "col-md-10" })
-    .attr("id", `input${timeBlocks.textarea}`);
+    .attr({ class: "col-md-10 text" })
+    .attr("id", `${timeBlocks.textarea}`);
   //   append input to hourRow
   hourRow.append(inputCol);
 
-  console.log("hello", moment().format("HH"));
+  console.log("current hour from moment", moment().format("HH"));
+
+  // if statements to change class for pas present or future display
   if (timeBlocks.time < moment().format("HH")) {
-    inputCol.attr({ class: "col-md-10 past" });
+    inputCol.attr({ class: "col-md-10 past text" });
   }
   if (timeBlocks.time > moment().format("HH")) {
-    inputCol.attr({ class: "col-md-10 future" });
+    inputCol.attr({ class: "col-md-10 future text" });
   }
   if (timeBlocks.time == moment().format("HH")) {
-    inputCol.attr({ class: "col-md-10 present" });
+    inputCol.attr({ class: "col-md-10 present text" });
   }
 
   //---build btn
@@ -109,6 +111,20 @@ timeBlocks.forEach(function (timeBlocks) {
     .attr({ class: "col-md-1 btn saveBtn" });
   // append btn to hourRow
   hourRow.append(saveBtn);
+});
+
+// save input for textarea in local storage
+// ----- connect button
+$(".saveBtn").on("click", function (event) {
+  event.preventDefault();
+  var text = $(".text").val();
+  var contentIndex = $(this).siblings(".text").attr("id");
+  var storeContent = {
+    content: text,
+    boxNum: contentIndex,
+  };
+
+  console.log(storeContent);
 });
 
 // function pastPresentFuture() {
