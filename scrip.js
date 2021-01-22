@@ -2,68 +2,69 @@
 $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 
 //Make objects and store in array for
+var storeContent = [];
 timeBlocks = [
   {
     hour: "09:00",
     meridiem: "am",
-    input: "",
-    textarea: 9,
+    input: "did it work ",
+    textarea: "0",
     time: "09",
   },
   {
     hour: "10:00",
     meridiem: "am",
     input: "",
-    textarea: 10,
+    textarea: "1",
     time: "10",
   },
   {
     hour: "11:00",
     meridiem: "am",
     input: "",
-    textarea: 11,
+    textarea: "2",
     time: "11",
   },
   {
     hour: "12:00",
     meridiem: "pm",
     input: "",
-    textarea: 12,
+    textarea: "3",
     time: "12",
   },
   {
     hour: "01:00",
     meridiem: "pm",
     input: "",
-    textarea: 1,
+    textarea: "4",
     time: "13",
   },
   {
     hour: "02:00",
     meridiem: "pm",
     input: "",
-    textarea: 2,
+    textarea: "5",
     time: "14",
   },
   {
     hour: "03:00",
     meridiem: "pm",
     input: "",
-    textarea: 3,
+    textarea: "6",
     time: "15",
   },
   {
     hour: "04:00",
     meridiem: "pm",
     input: "",
-    textarea: 4,
+    textarea: "7",
     time: "16",
   },
   {
     hour: "09:00",
     meridiem: "pm",
     input: "",
-    textarea: 5,
+    textarea: "8",
     time: "17",
   },
 ];
@@ -91,7 +92,7 @@ timeBlocks.forEach(function (timeBlocks) {
     .attr("id", `${timeBlocks.textarea}`);
   //   append input to hourRow
   hourRow.append(inputCol);
-
+  console.log(timeBlocks[0]);
   console.log("current hour from moment", moment().format("HH"));
 
   // if statements to change class for pas present or future display
@@ -117,30 +118,38 @@ timeBlocks.forEach(function (timeBlocks) {
 // ----- connect button
 $(".saveBtn").on("click", function (event) {
   event.preventDefault();
+  // save text
   var text = $(".text").val();
+  // save which box it was from
   var contentIndex = $(this).siblings(".text").attr("id");
-  var storeContent = {
+  // set text content
+  // if (timeBlocks.textarea === contentIndex) {
+  //   timeBlocks[contentIndex].input.push(text);
+  //   console.log("hello", timeBlocks[1].input);
+  // }
+  // store in object
+  var savedContent = {
     content: text,
     boxNum: contentIndex,
   };
-
-  console.log(storeContent);
+  //store in local storage
+  storeContent.push(savedContent);
+  localStorage.setItem("content", JSON.stringify(storeContent));
+  console.log("saved content", savedContent);
+  console.log("stored content", storeContent);
 });
 
-// function pastPresentFuture() {
-//   if (timeBlocks.time < moment().format("HH")) {
-//     inputCol.attr({ class: "col-md-10 past" });
-//   }
-//   if (timeBlocks.time > moment().format("HH")) {
-//     inputCol.attr({ class: "col-md-10 future" });
-//   }
-//   if (timeBlocks.time === moment().format("HH")) {
-//     inputCol.attr({ class: "col-md-10 present" });
-//   }
-// }
+// init function when page loads
+function init() {
+  // get item from local storage and put it in storedContent array
+  if (localStorage.getItem("content")) {
+    storeContent = JSON.parse(localStorage.getItem("content"));
+    console.log("stored stuff", storeContent);
+  }
+}
+init();
 
-// ----put the text content in a vriable
-// ---- create the element
-//-----put the text in the element
-//-----ad the classes to the element
-//-----append the element
+// take storedContent and display info in day planner boxes
+function displaySavedContent() {
+  timeBl;
+}
