@@ -8,155 +8,130 @@ timeBlocks = [
     hour: "09:00",
     meridiem: "am",
     input: "",
-    textarea: "0",
+    textarea: "1",
     time: "09",
   },
   {
     hour: "10:00",
     meridiem: "am",
     input: "",
-    textarea: "1",
+    textarea: "2",
     time: "10",
   },
   {
     hour: "11:00",
     meridiem: "am",
     input: "",
-    textarea: "2",
+    textarea: "3",
     time: "11",
   },
   {
     hour: "12:00",
     meridiem: "pm",
     input: "",
-    textarea: "3",
+    textarea: "4",
     time: "12",
   },
   {
     hour: "01:00",
     meridiem: "pm",
     input: "",
-    textarea: "4",
+    textarea: "5",
     time: "13",
   },
   {
     hour: "02:00",
     meridiem: "pm",
     input: "",
-    textarea: "5",
+    textarea: "6",
     time: "14",
   },
   {
     hour: "03:00",
     meridiem: "pm",
     input: "",
-    textarea: "6",
+    textarea: "7",
     time: "15",
   },
   {
     hour: "04:00",
     meridiem: "pm",
     input: "",
-    textarea: "7",
+    textarea: "8",
     time: "16",
   },
   {
-    hour: "09:00",
+    hour: "05:00",
     meridiem: "pm",
     input: "",
-    textarea: "8",
+    textarea: "9",
     time: "17",
   },
 ];
 
-// display time block on page
-//-----for each function
-timeBlocks.forEach(function (timeBlocks) {
-  //--- build the html element
+// Display time block on page
+timeBlocks.forEach(function (timeBlock) {
+  //-- Row element
   var hourRow = $("<div>").attr({ class: "row" });
-  // place element
   console.log(hourRow);
   $(".container").append(hourRow);
 
-  //-- build hour col
+  //-- Hour Col
   var timeCol = $("<div>")
     .attr({ class: "col-md-.5 hour" })
-    .text(`${timeBlocks.hour}${timeBlocks.meridiem}`);
+    .text(`${timeBlock.hour}${timeBlock.meridiem}`);
   console.log(timeCol);
-  //   append timeCol to hourRow
   hourRow.append(timeCol);
 
-  //   build text field with input and id
+  //   Textarea element
   var inputCol = $("<textarea>")
     .attr({ class: "col-md-10 text" })
-    .attr("id", `${timeBlocks.textarea}`);
-  //   append input to hourRow
+    .attr("id", `${timeBlock.textarea}`);
   hourRow.append(inputCol);
-  console.log(timeBlocks[0]);
-  console.log("current hour from moment", moment().format("HH"));
 
-  // if statements to change class for pas present or future display
-  if (timeBlocks.time < moment().format("HH")) {
+  //-- if statements to change class for past, present, and future display
+  if (timeBlock.time < moment().format("HH")) {
     inputCol.attr({ class: "col-md-10 past text" });
   }
-  if (timeBlocks.time > moment().format("HH")) {
+  if (timeBlock.time > moment().format("HH")) {
     inputCol.attr({ class: "col-md-10 future text" });
   }
-  if (timeBlocks.time == moment().format("HH")) {
+  if (timeBlock.time == moment().format("HH")) {
     inputCol.attr({ class: "col-md-10 present text" });
   }
 
-  //---build btn
+  //-- Save button element
   var saveBtn = $("<button>").attr({
     class: "col-md-.5 btn saveBtn far fa-save",
   });
-  // append btn to hourRow
   hourRow.append(saveBtn);
 });
 
-// save input for textarea in local storage
-// ----- connect button
+// On click event to save input for textarea in local storage
 $(".saveBtn").on("click", function (event) {
   event.preventDefault();
-  // save text
+  //-- save text
   var text = $(this).siblings(".text").val();
   console.log("text", text);
-  // save which box it was from
+  // Identify which box it was from
   var contentIndex = $(this).siblings(".text").attr("id");
-  // set text content
-  // if (timeBlocks.textarea === contentIndex) {
-  //   timeBlocks[contentIndex].input.push(text);
-  //   console.log("hello", timeBlocks[1].input);
-  // }
-  // store in object
-  var savedContent = {
-    content: text,
-    boxNum: contentIndex,
-  };
-  //store in local storage
-  storeContent.push(savedContent);
-  localStorage.setItem("content", JSON.stringify(storeContent));
-  console.log("saved content", savedContent);
-  console.log("stored content", storeContent);
+
+  // Puts information from textarea and moves it to local storage
+  timeBlocks.forEach(function (timeBlock) {
+    if (timeBlock.textarea === contentIndex) {
+      timeBlock.input = text;
+    }
+  });
+  localStorage.setItem("timeBlocks", JSON.stringify(timeBlocks));
 });
 
-// init function when page loads
+// Init function when page loads
 function init() {
-  // get item from local storage and put it in storedContent array
-  if (localStorage.getItem("content")) {
-    storeContent = JSON.parse(localStorage.getItem("content"));
-    console.log("stored stuff", storeContent);
-    // displaySavedContent();
-  }
+  timeBlocks = JSON.parse(localStorage.getItem("timeBlocks"));
+
+  timeBlocks.forEach(function (timeBlock) {
+    $(`#${timeBlock.textarea}`).text(timeBlock.input);
+  });
+  console.log(timeBlocks);
 }
 init();
-
-// // take storedContent and display info in day planner boxes
-// // function displaySavedContent() {
-// //   for (i = 0; i < timeBlocks.length; i++) {
-// //     if (timeBlocks.textarea === storeContent.boxNum) {
-// //       timeBlocks.input = storeContent.content;
-// //       console.log("input saved from storage", timeBlocks[0].input);
-//     }
-//   }
-// }
