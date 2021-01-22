@@ -8,54 +8,63 @@ timeBlocks = [
     meridiem: "am",
     input: "",
     textarea: 9,
+    time: "09",
   },
   {
     hour: "10:00",
     meridiem: "am",
     input: "",
     textarea: 10,
+    time: "10",
   },
   {
     hour: "11:00",
     meridiem: "am",
     input: "",
     textarea: 11,
+    time: "11",
   },
   {
     hour: "12:00",
     meridiem: "pm",
     input: "",
     textarea: 12,
+    time: "12",
   },
   {
     hour: "01:00",
     meridiem: "pm",
     input: "",
     textarea: 1,
+    time: "13",
   },
   {
     hour: "02:00",
     meridiem: "pm",
     input: "",
     textarea: 2,
+    time: "14",
   },
   {
     hour: "03:00",
     meridiem: "pm",
     input: "",
     textarea: 3,
+    time: "15",
   },
   {
     hour: "04:00",
     meridiem: "pm",
     input: "",
     textarea: 4,
+    time: "16",
   },
   {
-    hour: "05:00",
+    hour: "09:00",
     meridiem: "pm",
     input: "",
     textarea: 5,
+    time: "17",
   },
 ];
 
@@ -83,6 +92,17 @@ timeBlocks.forEach(function (timeBlocks) {
   //   append input to hourRow
   hourRow.append(inputCol);
 
+  console.log("hello", moment().format("HH"));
+  if (timeBlocks.time < moment().format("HH")) {
+    inputCol.attr({ class: "col-md-10 past" });
+  }
+  if (timeBlocks.time > moment().format("HH")) {
+    inputCol.attr({ class: "col-md-10 future" });
+  }
+  if (timeBlocks.time == moment().format("HH")) {
+    inputCol.attr({ class: "col-md-10 present" });
+  }
+
   //---build btn
   var saveBtn = $("<button>")
     .text(`SAVE`)
@@ -90,6 +110,18 @@ timeBlocks.forEach(function (timeBlocks) {
   // append btn to hourRow
   hourRow.append(saveBtn);
 });
+
+// function pastPresentFuture() {
+//   if (timeBlocks.time < moment().format("HH")) {
+//     inputCol.attr({ class: "col-md-10 past" });
+//   }
+//   if (timeBlocks.time > moment().format("HH")) {
+//     inputCol.attr({ class: "col-md-10 future" });
+//   }
+//   if (timeBlocks.time === moment().format("HH")) {
+//     inputCol.attr({ class: "col-md-10 present" });
+//   }
+// }
 
 // ----put the text content in a vriable
 // ---- create the element
