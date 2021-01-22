@@ -2,69 +2,69 @@
 $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 
 //Make objects and store in array for
-var storeContent = [];
+
 timeBlocks = [
   {
     hour: "09:00",
     meridiem: "am",
     input: "",
-    textarea: "1",
+    blockIndex: "1",
     time: "09",
   },
   {
     hour: "10:00",
     meridiem: "am",
     input: "",
-    textarea: "2",
+    blockIndex: "2",
     time: "10",
   },
   {
     hour: "11:00",
     meridiem: "am",
     input: "",
-    textarea: "3",
+    blockIndex: "3",
     time: "11",
   },
   {
     hour: "12:00",
     meridiem: "pm",
     input: "",
-    textarea: "4",
+    blockIndex: "4",
     time: "12",
   },
   {
     hour: "01:00",
     meridiem: "pm",
     input: "",
-    textarea: "5",
+    blockIndex: "5",
     time: "13",
   },
   {
     hour: "02:00",
     meridiem: "pm",
     input: "",
-    textarea: "6",
+    blockIndex: "6",
     time: "14",
   },
   {
     hour: "03:00",
     meridiem: "pm",
     input: "",
-    textarea: "7",
+    blockIndex: "7",
     time: "15",
   },
   {
     hour: "04:00",
     meridiem: "pm",
     input: "",
-    textarea: "8",
+    blockIndex: "8",
     time: "16",
   },
   {
     hour: "05:00",
     meridiem: "pm",
     input: "",
-    textarea: "9",
+    blockIndex: "9",
     time: "17",
   },
 ];
@@ -86,7 +86,7 @@ timeBlocks.forEach(function (timeBlock) {
   //   Textarea element
   var inputCol = $("<textarea>")
     .attr({ class: "col-md-10 text" })
-    .attr("id", `${timeBlock.textarea}`);
+    .attr("id", `${timeBlock.blockIndex}`);
   hourRow.append(inputCol);
 
   //-- if statements to change class for past, present, and future display
@@ -107,7 +107,7 @@ timeBlocks.forEach(function (timeBlock) {
   hourRow.append(saveBtn);
 });
 
-// On click event to save input for textarea in local storage
+// On click event to save input for blockIndex in local storage
 $(".saveBtn").on("click", function (event) {
   event.preventDefault();
   //-- save text
@@ -116,9 +116,9 @@ $(".saveBtn").on("click", function (event) {
   // Identify which box it was from
   var contentIndex = $(this).siblings(".text").attr("id");
 
-  // Puts information from textarea and moves it to local storage
+  // Puts information from blockIndex and moves it to local storage
   timeBlocks.forEach(function (timeBlock) {
-    if (timeBlock.textarea === contentIndex) {
+    if (timeBlock.blockIndex === contentIndex) {
       timeBlock.input = text;
     }
   });
@@ -127,11 +127,13 @@ $(".saveBtn").on("click", function (event) {
 
 // Init function when page loads
 function init() {
-  timeBlocks = JSON.parse(localStorage.getItem("timeBlocks"));
-
+  storedBlocks = JSON.parse(localStorage.getItem("timeBlocks"));
+  if (storedBlocks) {
+    timeBlocks = storedBlocks;
+  }
   timeBlocks.forEach(function (timeBlock) {
-    $(`#${timeBlock.textarea}`).text(timeBlock.input);
+    console.log("time block", timeBlock);
+    $(`#${timeBlock.blockIndex}`).text(timeBlock.input);
   });
-  console.log(timeBlocks);
 }
 init();
