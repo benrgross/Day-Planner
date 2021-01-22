@@ -6,4 +6,4 @@ The day planner application utilizes jQuery to handle DOM traversal, manipulatio
 
 ![alt-text](/images/day-planner.gif)
 
-link to webpage: https://benrgross.github.io/Day-Planner/
+link to webpage: https://benrgross.github.io/Plan-Your-Workday/
