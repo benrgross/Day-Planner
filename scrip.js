@@ -80,7 +80,7 @@ timeBlocks.forEach(function (timeBlocks) {
 
   //-- build hour col
   var timeCol = $("<div>")
-    .attr({ class: "col-md-1 hour" })
+    .attr({ class: "col-md-.5 hour" })
     .text(`${timeBlocks.hour}${timeBlocks.meridiem}`);
   console.log(timeCol);
   //   append timeCol to hourRow
@@ -107,9 +107,9 @@ timeBlocks.forEach(function (timeBlocks) {
   }
 
   //---build btn
-  var saveBtn = $("<button>")
-    .text(`SAVE`)
-    .attr({ class: "col-md-1 btn saveBtn" });
+  var saveBtn = $("<button>").attr({
+    class: "col-md-.5 btn saveBtn far fa-save",
+  });
   // append btn to hourRow
   hourRow.append(saveBtn);
 });
@@ -119,7 +119,8 @@ timeBlocks.forEach(function (timeBlocks) {
 $(".saveBtn").on("click", function (event) {
   event.preventDefault();
   // save text
-  var text = $(".text").val();
+  var text = $(this).siblings(".text").val();
+  console.log("text", text);
   // save which box it was from
   var contentIndex = $(this).siblings(".text").attr("id");
   // set text content
@@ -145,17 +146,17 @@ function init() {
   if (localStorage.getItem("content")) {
     storeContent = JSON.parse(localStorage.getItem("content"));
     console.log("stored stuff", storeContent);
-    displaySavedContent();
+    // displaySavedContent();
   }
 }
 init();
 
-// take storedContent and display info in day planner boxes
-function displaySavedContent() {
-  for (i = 0; i < timeBlocks.length; i++) {
-    if (timeBlocks.textarea === storeContent.boxNum) {
-      timeBlocks.input = storeContent.content;
-      console.log("input saved from storage", timeBlocks[0].input);
-    }
-  }
-}
+// // take storedContent and display info in day planner boxes
+// // function displaySavedContent() {
+// //   for (i = 0; i < timeBlocks.length; i++) {
+// //     if (timeBlocks.textarea === storeContent.boxNum) {
+// //       timeBlocks.input = storeContent.content;
+// //       console.log("input saved from storage", timeBlocks[0].input);
+//     }
+//   }
+// }
