@@ -5,64 +5,55 @@ $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 
 timeBlocks = [
   {
-    hour: "09:00",
-    meridiem: "am",
+    hour: "09:00am",
     input: "",
     blockIndex: "1",
     time: "09",
   },
   {
-    hour: "10:00",
-    meridiem: "am",
+    hour: "10:00am",
     input: "",
     blockIndex: "2",
     time: "10",
   },
   {
-    hour: "11:00",
-    meridiem: "am",
+    hour: "11:00am",
     input: "",
     blockIndex: "3",
     time: "11",
   },
   {
-    hour: "12:00",
-    meridiem: "pm",
+    hour: "12:00pm"
     input: "",
     blockIndex: "4",
     time: "12",
   },
   {
-    hour: "01:00",
-    meridiem: "pm",
+    hour: "01:00pm",
     input: "",
     blockIndex: "5",
     time: "13",
   },
   {
-    hour: "02:00",
-    meridiem: "pm",
+    hour: "02:00pm",
     input: "",
     blockIndex: "6",
     time: "14",
   },
   {
-    hour: "03:00",
-    meridiem: "pm",
+    hour: "03:00pm",
     input: "",
     blockIndex: "7",
     time: "15",
   },
   {
-    hour: "04:00",
-    meridiem: "pm",
+    hour: "04:00pm",
     input: "",
     blockIndex: "8",
     time: "16",
   },
   {
-    hour: "05:00",
-    meridiem: "pm",
+    hour: "05:00pm",
     input: "",
     blockIndex: "9",
     time: "17",
@@ -79,14 +70,14 @@ timeBlocks.forEach(function (timeBlock) {
   //-- Hour Col
   var timeCol = $("<div>")
     .attr({ class: "col-md-.5 hour" })
-    .text(`${timeBlock.hour}${timeBlock.meridiem}`);
+    .text(timeBlock.hour);
   console.log(timeCol);
   hourRow.append(timeCol);
 
-  //   Textarea element
+  //   Textarea element to input events and save them
   var inputCol = $("<textarea>")
     .attr({ class: "col-md-10 text" })
-    .attr("id", `${timeBlock.blockIndex}`);
+    .attr("id", timeBlock.blockIndex);
   hourRow.append(inputCol);
 
   //-- if statements to change class for past, present, and future display
