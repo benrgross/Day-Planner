@@ -23,37 +23,43 @@ timeBlocks = [
     time: "11",
   },
   {
-    hour: "12:00pm"
+    hour: "12:00pm",
+    meridiem: "00pm",
     input: "",
     blockIndex: "4",
     time: "12",
   },
   {
     hour: "01:00pm",
+    meridiem: "00pm",
     input: "",
     blockIndex: "5",
     time: "13",
   },
   {
     hour: "02:00pm",
+    meridiem: "00pm",
     input: "",
     blockIndex: "6",
     time: "14",
   },
   {
     hour: "03:00pm",
+    meridiem: "00pm",
     input: "",
     blockIndex: "7",
     time: "15",
   },
   {
     hour: "04:00pm",
+    meridiem: "00pm",
     input: "",
     blockIndex: "8",
     time: "16",
   },
   {
     hour: "05:00pm",
+    meridiem: "00pm",
     input: "",
     blockIndex: "9",
     time: "17",
@@ -74,10 +80,10 @@ timeBlocks.forEach(function (timeBlock) {
   console.log(timeCol);
   hourRow.append(timeCol);
 
-  //   Textarea element to input events and save them
+  //   Textarea element
   var inputCol = $("<textarea>")
     .attr({ class: "col-md-10 text" })
-    .attr("id", timeBlock.blockIndex);
+    .attr("id", `${timeBlock.blockIndex}`);
   hourRow.append(inputCol);
 
   //-- if statements to change class for past, present, and future display
