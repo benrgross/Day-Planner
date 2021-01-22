@@ -7,7 +7,7 @@ timeBlocks = [
   {
     hour: "09:00",
     meridiem: "am",
-    input: "did it work ",
+    input: "",
     textarea: "0",
     time: "09",
   },
@@ -145,11 +145,17 @@ function init() {
   if (localStorage.getItem("content")) {
     storeContent = JSON.parse(localStorage.getItem("content"));
     console.log("stored stuff", storeContent);
+    displaySavedContent();
   }
 }
 init();
 
 // take storedContent and display info in day planner boxes
 function displaySavedContent() {
-  timeBl;
+  for (i = 0; i < timeBlocks.length; i++) {
+    if (timeBlocks.textarea === storeContent.boxNum) {
+      timeBlocks.input = storeContent.content;
+      console.log("input saved from storage", timeBlocks[0].input);
+    }
+  }
 }
